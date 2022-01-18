@@ -315,6 +315,12 @@ public class TypeScriptRxjsClientCodegen extends AbstractTypeScriptClientCodegen
             if (op.getHasPathParams()) {
                 hasPathParams = true;
             }
+
+            if (op.bodyParam != null && this.reservedParamNames.contains(op.bodyParam.paramName)) {
+                String paramNameAlternative = op.bodyParam.paramName + "Alias";
+                setParamNameAlternative(op.bodyParam, op.bodyParam.paramName, paramNameAlternative);
+                LOGGER.info("param: {} isReserved ––> {}", op.bodyParam.paramName, paramNameAlternative);
+            }
         }
 
         operations.put("hasRequiredParams", hasRequiredParams);
